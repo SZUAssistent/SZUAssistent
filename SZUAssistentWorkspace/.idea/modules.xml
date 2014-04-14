@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SZUAssistent/SZUAssistent.iml" filepath="$PROJECT_DIR$/SZUAssistent/SZUAssistent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SZUAssistentWorkspace.iml" filepath="$PROJECT_DIR$/SZUAssistentWorkspace.iml" />
+    </modules>
+  </component>
+</project>
+
