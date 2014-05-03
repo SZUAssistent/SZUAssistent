@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--	使用spring-beans-3.0.xsd语义约束，若使用dtd语义约束则不支持新增标签	-->
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
@@ -14,53 +14,55 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-	<!-- 部署Spring容器中的Bean  -->
-	<bean id="dataSource"
-		class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<!-- 指定连接数据库的驱动 -->
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<!-- 指定连接数据库的URL -->
-		<property name="jdbcUrl"
-			value="jdbc:mysql://127.0.0.1:3306/tech_blog" />
-		<!-- 指定连接数据库的用户名 -->
-		<property name="user" value="root" />
-		<!-- 指定连接数据库的密码 -->
-		<property name="password" value="2426" />
-		<!-- 指定连接数据库连接池的最大连接数 -->
-		<property name="maxPoolSize" value="40" />
-		<!-- 指定连接数据库连接池的最小连接数 -->
-		<property name="minPoolSize" value="5" />
-		<!-- 指定连接数据库连接池的初始化连接数 -->
-		<property name="initialPoolSize" value="5" />
-		<!-- 指定连接数据库连接池的连接的最大空闲时间 -->
-		<property name="maxIdleTime" value="20" />
-	</bean>
-	<!-- 定义Hibernate的SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<!-- 依赖注入数据源，注入正是上面定义的dataSource -->
-		<property name="dataSource" ref="dataSource" />
-		<!-- mappingResouces属性用来列出全部映射文件 -->
-		<property name="mappingResources">
-			<list>
-				<!-- 以下用来列出Hibernate映射文件 -->
-			</list>
-		</property>
-		<!-- 定义Hibernate的SessionFactory的属性 -->
-		<property name="hibernateProperties">
-			<!-- 配置Hibernate属性 -->
-			<value>
-				hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
-				<!-- SQLServer方言为hibernate.dialect=org.hibernate.dialect.SQLServerDialect -->
-				hibernate.hbm2ddl.auto=update hibernate.show_sql=true
-				hibernate.format_sql=true
-				hibernate.cache.use_second_level_cache=true
-				hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider
-				hibernate.generate_statistics=true
-				hibernate.cache.use_structured_entries=true;
-			</value>
-		</property>
-	</bean>
-	<!-- 配置dao组件 -->
+    <!-- 部署Spring容器中的Bean  -->
+    <bean id="dataSource"
+          class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <!-- 指定连接数据库的驱动 -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <!-- 指定连接数据库的URL -->
+        <property name="jdbcUrl"
+                  value="jdbc:mysql://127.0.0.1:3306/szuassistent"/>
+        <!-- 指定连接数据库的用户名 -->
+        <property name="user" value="root"/>
+        <!-- 指定连接数据库的密码 -->
+        <property name="password" value="2426"/>
+        <!-- 指定连接数据库连接池的最大连接数 -->
+        <property name="maxPoolSize" value="40"/>
+        <!-- 指定连接数据库连接池的最小连接数 -->
+        <property name="minPoolSize" value="5"/>
+        <!-- 指定连接数据库连接池的初始化连接数 -->
+        <property name="initialPoolSize" value="5"/>
+        <!-- 指定连接数据库连接池的连接的最大空闲时间 -->
+        <property name="maxIdleTime" value="20"/>
+    </bean>
+    <!-- 定义Hibernate的SessionFactory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <!-- 依赖注入数据源，注入正是上面定义的dataSource -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- mappingResouces属性用来列出全部映射文件 -->
+        <property name="mappingResources">
+            <list>
+                <!-- 以下用来列出Hibernate映射文件 -->
+                <value>/org/wechatapps/po/db/History.hbm.xml</value>
+            </list>
+        </property>
+        <!-- 定义Hibernate的SessionFactory的属性 -->
+        <property name="hibernateProperties">
+            <!-- 配置Hibernate属性 -->
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+                <!-- SQLServer方言为hibernate.dialect=org.hibernate.dialect.SQLServerDialect -->
+                hibernate.hbm2ddl.auto=update hibernate.show_sql=true
+                hibernate.format_sql=true
+                hibernate.cache.use_second_level_cache=true
+                hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider
+                hibernate.generate_statistics=true
+                hibernate.cache.use_structured_entries=true;
+            </value>
+        </property>
+    </bean>
+    <!-- 配置dao组件 -->
+    <bean id="historyDao" class="org.wechatapps.dao.HistoryDaoImpl" p:sessionFactory-ref="sessionFactory"/>
 </beans>

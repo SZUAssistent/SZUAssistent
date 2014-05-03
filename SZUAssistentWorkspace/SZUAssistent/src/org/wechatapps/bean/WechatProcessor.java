@@ -2,6 +2,7 @@ package org.wechatapps.bean;
 
 
 import org.wechatapps.po.Message;
+import org.wechatapps.po.event.ClickEvent;
 import org.wechatapps.po.recieve.*;
 
 /**
@@ -18,6 +19,8 @@ public interface WechatProcessor {
     String process(Message message);
 
     String processText(ReceiveTextMessage text);
+
+    String processClickEvent(ClickEvent event);
 
     String processVoice(ReceiveVoiceMessage voice);
 

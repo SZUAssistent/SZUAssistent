@@ -71,21 +71,20 @@ public class XMLUtils {
             return new PrettyPrintWriter(out) {
                 boolean cdata = true;
 
-                @SuppressWarnings("unchecked")
                 public void startNode(String name, Class clazz) {
                     super.startNode(name, clazz);
                 }
 
                 protected void writeText(QuickWriter writer, String text) {
                     if (cdata) {
-                        try {
-                            Integer.parseInt(text);
-                            writer.write(text);
-                        } catch (NumberFormatException nfe) {
-                            writer.write("<![CDATA[");
-                            writer.write(text);
-                            writer.write("]]>");
-                        }
+//                        try {
+//                            Integer.parseInt(text);
+//                            writer.write(text);
+//                        } catch (NumberFormatException nfe) {
+                        writer.write("<![CDATA[");
+                        writer.write(text);
+                        writer.write("]]>");
+//                        }
 
                     } else {
                         writer.write(text);

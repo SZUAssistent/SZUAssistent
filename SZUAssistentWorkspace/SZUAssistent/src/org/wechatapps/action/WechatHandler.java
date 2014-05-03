@@ -44,8 +44,8 @@ public class WechatHandler extends ActionSupport {
     public String execute() throws IOException {
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        response.setContentType("text/html;charset=UTF-8");
         Message message;
 
         try {
@@ -55,7 +55,7 @@ public class WechatHandler extends ActionSupport {
                 return null;
             }
             String output = wechatProcessor.process(message); // Process message
-            out.write(output); // Output the processed result
+            if (output != null) out.write(output); // Output the processed result
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,5 +12,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
     <!-- 配置bean组件 -->
-    <bean id="wechatProcessor" class="org.wechatapps.bean.WechatProcessorImpl"/>
+    <bean id="wechatProcessor" class="org.wechatapps.bean.WechatProcessorImpl" autowire="byType"/>
+    <bean id="executorFactory" class="org.wechatapps.factory.ExecutorFactory" scope="singleton">
+        <constructor-arg type="java.lang.String" value="org.wechatapps.executors"></constructor-arg>
+    </bean>
 </beans>

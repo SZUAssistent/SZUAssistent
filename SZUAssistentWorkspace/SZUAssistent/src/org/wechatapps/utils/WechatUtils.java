@@ -1,8 +1,10 @@
 package org.wechatapps.utils;
 
 import org.wechatapps.po.Message;
+import org.wechatapps.po.event.ClickEvent;
 import org.wechatapps.po.recieve.*;
 import org.dom4j.DocumentException;
+import org.wechatapps.po.send.SendTextMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class WechatUtils {
      * Message type enum
      */
     public enum MESS_TYPE {
-        TEXT, IMAGE, VOICE, VIDEO, LOCATION, LINK
+        TEXT, IMAGE, VOICE, VIDEO, LOCATION, LINK, EVENT
     }
     /* End: Wechat Message Types */
 
@@ -69,6 +71,10 @@ public class WechatUtils {
             case LINK:
                 message.setType(MESS_TYPE.LINK.toString());
                 message.setMess(buildLinkMessage(data));
+                break;
+            case EVENT:
+                message.setType(MESS_TYPE.EVENT.toString());
+                message.setMess(buildClickEvent(data));
                 break;
             default:
                 message = null;
@@ -159,5 +165,33 @@ public class WechatUtils {
             voice.setAttribute(en.toString(), data.get(en.toString()));
         }
         return voice;
+    }
+
+    /**
+     * Build event message
+     *
+     * @param data
+     * @return
+     */
+    public static ClickEvent buildClickEvent(Map<String, String> data) {
+        ClickEvent event = new ClickEvent();
+        for (Enum en : ClickEvent.AttributeEnum.values()) {
+            event.setAttribute(en.toString(), data.get(en.toString()));
+        }
+        return event;
+    }
+
+    public static String buildTextMessageForResp(String fromUserName, String toUserName, String content) {
+        SendTextMessage message = new SendTextMessage();
+        message.setAttribute(SendTextMessage.AttributeEnum.FromUserName.toString(), fromUserName);
+        message.setAttribute(SendTextMessage.AttributeEnum.ToUserName.toString(), toUserName);
+        message.setAttribute(SendTextMessage.AttributeEnum.CreateTime.toString(), System.currentTimeMillis());
+        message.setAttribute(SendTextMessage.AttributeEnum.MsgType.toString(), MESS_TYPE.TEXT.toString().toLowerCase());
+        message.setAttribute(SendTextMessage.AttributeEnum.Content.toString(), content);
+        return XMLUtils.objectToXml(message);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(buildTextMessageForResp("hello", "123213", "213213"));
     }
 }
